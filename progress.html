@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 진도 - 과학아 놀자!</title>
+<meta name="description" content="학습한 개념, 푼 문제, 오답노트를 한눈에 확인하세요.">
+<link rel="canonical" href="https://science.chatgpts.kr/progress.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cg-auth.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo"><span class="logo-char">🔬</span><span>과학아 놀자!</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기"><i class="fa-solid fa-bars"></i></button>
+    <nav class="main-nav" id="main-nav"></nav>
+  </div>
+</header>
+<main class="section" style="padding-top:28px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">MY PROGRESS</span>
+      <h2>🗺️ 내 진도</h2>
+      <p>비로그인 기록은 이 기기에, 로그인하면 계정에 저장돼요.</p>
+    </div>
+    <div id="progress-body"></div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div><h4>🔬 과학아 놀자!</h4><p>개념부터 실험까지, 초중고 과학을 쉽고 재미있게</p></div>
+    <div><h4>바로가기</h4><p><a href="practice.html">문제 풀기</a> · <a href="stats.html">통계</a> · <a href="login.html">로그인</a></p></div>
+    <div><h4>안내</h4><p>로그인하면 기기 기록이 계정과 합쳐져요.</p></div>
+  </div>
+  <div class="container foot-bottom">© 2026 과학아 놀자! · science.chatgpts.kr</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/science-data.js"></script>
+<script src="js/concept-data.js"></script>
+<script src="js/problem-data.js"></script>
+<script src="js/experiment-data.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/cg-auth.js" data-service="science" data-adopt="true"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress-page.js"></script>
+<div id="cg-auth-slot" style="position:fixed;right:12px;bottom:12px;z-index:500;"></div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학아 놀자! - 초중고 과학 개념과 문제 풀이</title>
+<meta name="description" content="초등, 중등, 고등 주요 과학 개념과 법칙을 쉽고 재미있게 배우고, 개념별 문제와 안전한 관찰 활동으로 확인하는 과학 학습 서비스입니다.">
+<link rel="canonical" href="https://science.chatgpts.kr/">
+<meta property="og:title" content="과학아 놀자!">
+<meta property="og:description" content="개념부터 실험까지, 초중고 과학을 쉽고 재미있게 배워요.">
+<meta property="og:url" content="https://science.chatgpts.kr/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cg-auth.css">
+<meta name="google-adsense-account" content="ca-pub-3321070604000141">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3321070604000141&tfat=1" crossorigin="anonymous"></script>
+<script>(window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo"><span class="logo-char">🔬</span><span>과학아 놀자!</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기"><i class="fa-solid fa-bars"></i></button>
+    <nav class="main-nav" id="main-nav"></nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="hero-badge">🔬 초등 관찰부터 고등 공식까지!</span>
+        <h1>개념부터 실험까지,<br><span>과학을 재미있게</span></h1>
+        <p class="lead">초등 관찰부터 중고등 과학 법칙까지, 쉽고 재미있게 배우고 바로 문제로 확인해요.<br>AI 없이 정적 데이터와 규칙 기반 문제로 언제든 공부할 수 있어요.</p>
+        <div class="hero-actions">
+          <a href="concepts.html" class="btn btn-primary"><i class="fa-solid fa-flask"></i> 개념 보기</a>
+          <a href="practice.html" class="btn btn-secondary"><i class="fa-solid fa-pen"></i> 문제 풀기</a>
+          <a href="quiz.html" class="btn btn-outline"><i class="fa-solid fa-puzzle-piece"></i> 퀴즈 풀기</a>
+          <a href="experiment.html" class="btn btn-outline"><i class="fa-solid fa-eye"></i> 실험 보기</a>
+          <a href="worksheet.html" class="btn btn-outline"><i class="fa-solid fa-print"></i> 학습지 만들기</a>
+          <a href="progress.html" class="btn btn-outline"><i class="fa-solid fa-map"></i> 내 진도 보기</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="big-emoji">🧪</div>
+          <h3>오늘의 과학 한 걸음</h3>
+          <p class="muted">개념 하나 + 문제 5개면 충분해요.</p>
+          <div class="counter-row" id="service-counters"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="levels">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">START HERE</span>
+        <h2>학교급을 골라 시작해요</h2>
+        <p>초등 관찰부터 중등 개념, 고등 공식까지 단계별로 준비했어요.</p>
+      </div>
+      <div class="level-grid">
+        <div class="level-card" style="border-top:6px solid #16a34a;">
+          <div class="level-emoji">🌱</div>
+          <h3>초등 과학</h3>
+          <p>자연, 식물, 물, 빛, 자석을 관찰하며 재미있게 배워요.</p>
+          <a href="concepts.html?school=elementary" class="btn btn-primary btn-sm">초등 개념 보기</a>
+        </div>
+        <div class="level-card" style="border-top:6px solid #2563eb;">
+          <div class="level-emoji">🌿</div>
+          <h3>중등 과학</h3>
+          <p>힘, 전기, 원자, 세포, 지구와 우주를 개념과 문제로 익혀요.</p>
+          <a href="concepts.html?school=middle" class="btn btn-primary btn-sm">중등 개념 보기</a>
+        </div>
+        <div class="level-card" style="border-top:6px solid #7c3aed;">
+          <div class="level-emoji">🌳</div>
+          <h3>고등 과학</h3>
+          <p>물리, 화학, 생명과학, 지구과학의 핵심 개념과 공식을 정리해요.</p>
+          <a href="concepts.html?school=high" class="btn btn-primary btn-sm">고등 개념 보기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features" style="background:#ffffff;">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">FEATURES</span>
+        <h2>이렇게 배워요</h2>
+        <p>쉬운 설명, 암기 꿀팁, 바로 푸는 문제까지 한 곳에 모았어요.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">📚</div><h3>초중고 개념 정리</h3><p>학교급·분야·단원별로 개념과 공식을 카드로 정리했어요.</p></div>
+        <div class="feature-card"><div class="feature-icon">💡</div><h3>쉬운 비유와 암기 팁</h3><p>생활 속 예시와 한 줄 암기 문장으로 오래 기억해요.</p></div>
+        <div class="feature-card"><div class="feature-icon">✏️</div><h3>개념별 문제</h3><p>예제와 연습 문제를 바로 풀고 해설로 확인해요.</p></div>
+        <div class="feature-card"><div class="feature-icon">🧪</div><h3>안전한 실험/관찰</h3><p>집과 교실에서 할 수 있는 안전한 활동만 모았어요.</p></div>
+        <div class="feature-card"><div class="feature-icon">📒</div><h3>오답노트</h3><p>틀린 문제를 저장하고 다시 풀며 약점을 잡아요.</p></div>
+        <div class="feature-card"><div class="feature-icon">📄</div><h3>인쇄용 학습지</h3><p>A4 문제지를 만들어 출력하고 손으로 풀어보세요.</p></div>
+        <div class="feature-card"><div class="feature-icon">📈</div><h3>학습 통계</h3><p>푼 문제, 정답률, 자주 틀리는 분야를 한눈에 봐요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="today">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">TODAY</span>
+        <h2>오늘의 개념과 5문제</h2>
+        <p>날짜마다 바뀌는 추천 학습이에요.</p>
+      </div>
+      <div id="today-concept"></div>
+      <div style="height:16px;"></div>
+      <div id="today-quiz"></div>
+    </div>
+  </section>
+
+  <section class="section" id="tips" style="background:#fffdf4;">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">MEMORY TIPS</span>
+        <h2>과학 암기 꿀팁</h2>
+      </div>
+      <div id="memory-tips"></div>
+    </div>
+  </section>
+
+  <section class="section" id="units">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">UNITS</span>
+        <h2>인기 단원 바로가기</h2>
+      </div>
+      <div id="popular-units"></div>
+    </div>
+  </section>
+
+  <section class="section" id="recent">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">RECENT</span>
+        <h2>최근 학습 기록</h2>
+        <p>이 기기에서의 학습 기록이에요. 로그인하면 계정에 저장돼요.</p>
+      </div>
+      <div id="recent-study"></div>
+      <div class="detail-controls">
+        <a href="progress.html" class="btn btn-primary btn-sm">내 진도 보기</a>
+        <a href="login.html" class="btn btn-outline btn-sm">로그인하고 기록 저장</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div><h4>🔬 과학아 놀자!</h4><p>개념부터 실험까지, 초중고 과학을 쉽고 재미있게</p></div>
+    <div><h4>바로가기</h4><p><a href="concepts.html">개념 보기</a> · <a href="practice.html">문제 풀기</a> · <a href="quiz.html">퀴즈</a> · <a href="experiment.html">실험</a></p></div>
+    <div><h4>안내</h4><p>AI 기능 없이 정적 데이터와 규칙 기반 문제로 동작해요. 로그인은 선택이며, 기록 저장을 원할 때만 사용해요.</p></div>
+  </div>
+  <div class="container foot-bottom">© 2026 과학아 놀자! · science.chatgpts.kr</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/science-data.js"></script>
+<script src="js/concept-data.js"></script>
+<script src="js/problem-data.js"></script>
+<script src="js/experiment-data.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/cg-auth.js" data-service="science" data-adopt="true" data-mount="#cg-auth-slot"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<div id="cg-auth-slot" style="position:fixed;right:12px;bottom:12px;z-index:500;"></div>
+</body>
+</html>

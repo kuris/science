@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 센터 - 과학아 놀자!</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cg-auth.css">
+<style>
+.admin-loading-wrap{text-align:center;padding:80px 20px;}
+.admin-spinner{width:44px;height:44px;border:4px solid #d9efe7;border-top-color:#0d9488;border-radius:50%;margin:0 auto 14px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.admin-auth-container{max-width:480px;margin:60px auto;padding:0 20px;}
+.admin-auth-card{background:#fff;border-radius:24px;box-shadow:0 8px 24px rgba(13,148,136,.12);padding:34px;text-align:center;border:1px solid #d9efe7;}
+.admin-auth-icon{font-size:2.4rem;background:#ccfbf1;color:#0b7c73;width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.admin-btn-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;border:2px solid #d9efe7;border-radius:12px;padding:12px;font-weight:800;font-size:1rem;}
+.admin-btn-outline{display:inline-block;border:2px solid #0d9488;color:#0b7c73;border-radius:999px;padding:8px 18px;font-weight:700;}
+.admin-header{background:#0b3b36;color:#fff;padding:16px 0;}
+.admin-header-inner{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;}
+</style>
+</head>
+<body>
+<div class="admin-loading-wrap" id="admin-loading"><div class="admin-spinner"></div><p>관리자 보안 인증 확인 중...</p></div>
+<div class="admin-auth-container" id="admin-auth-view" style="display:none;">
+  <div class="admin-auth-card">
+    <div class="admin-auth-icon">🛡️</div>
+    <h2>관리자 센터 로그인</h2>
+    <p>시스템 관리자(<strong>phiskim@gmail.com</strong>) 전용 화면입니다.</p>
+    <button type="button" class="admin-btn-google" id="admin-google-btn">Google 계정으로 관리자 로그인</button>
+    <div style="margin-top:20px;"><a href="index.html" class="admin-btn-outline">서비스 홈으로 돌아가기</a></div>
+  </div>
+</div>
+<div class="admin-auth-container" id="admin-denied-view" style="display:none;">
+  <div class="admin-auth-card">
+    <div class="admin-auth-icon" style="background:#fee2e2;color:#dc2626;">🔒</div>
+    <h2>접근 권한이 없습니다</h2>
+    <p>현재 계정(<strong id="denied-user-email"></strong>)은 관리자 권한이 없습니다.</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button type="button" class="admin-btn-google js-admin-logout">다른 계정으로 로그인 (로그아웃)</button>
+      <a href="index.html" class="admin-btn-outline">홈으로 이동</a>
+    </div>
+  </div>
+</div>
+<div id="admin-dashboard-view" style="display:none;">
+  <header class="admin-header"><div class="admin-header-inner">
+    <div><strong>🔬 과학아 놀자! ADMIN</strong></div>
+    <div><a href="index.html" style="color:#fff;">홈으로</a> · <button class="js-admin-logout" style="background:none;border:1px solid #fff;color:#fff;border-radius:999px;padding:6px 14px;">로그아웃</button></div>
+  </div></header>
+  <main class="section"><div class="container">
+    <div class="section-head"><span class="eyebrow">ADMIN</span><h2>전체 학습 현황</h2><p>science 스키마 집계 (RLS 범위 내)</p></div>
+    <div id="admin-stats"></div>
+  </div></main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/science-data.js"></script>
+<script src="js/cg-auth.js" data-service="science" data-adopt="true"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

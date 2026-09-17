@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학습지 만들기 - 과학아 놀자!</title>
+<meta name="description" content="학교급·분야·단원별로 A4 인쇄용 과학 문제지를 만들어보세요.">
+<link rel="canonical" href="https://science.chatgpts.kr/worksheet.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cg-auth.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo"><span class="logo-char">🔬</span><span>과학아 놀자!</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기"><i class="fa-solid fa-bars"></i></button>
+    <nav class="main-nav" id="main-nav"></nav>
+  </div>
+</header>
+<main class="section" style="padding-top:28px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">WORKSHEET</span>
+      <h2>📄 학습지 만들기</h2>
+      <p>조건을 고르면 A4 인쇄용 문제지가 만들어져요. 브라우저 인쇄로 PDF 저장도 돼요.</p>
+    </div>
+    <div class="quiz-card no-print">
+      <div class="filter-bar">
+        <select id="ws-school"><option value="all">전체 학교급</option><option value="elementary">🌱 초등</option><option value="middle">🌿 중등</option><option value="high">🌳 고등</option></select>
+        <select id="ws-field"><option value="all">전체 분야</option><option value="physics">⚙️ 물리</option><option value="chemistry">🧪 화학</option><option value="biology">🌱 생명과학</option><option value="earth_science">🌍 지구과학</option><option value="integrated">🔬 통합과학</option></select>
+        <select id="ws-unit"><option value="all">전체 단원</option></select>
+        <select id="ws-level"><option value="all">전체 난이도</option><option value="easy">쉬움</option><option value="normal">보통</option><option value="hard">어려움</option></select>
+      </div>
+      <div class="filter-bar">
+        <select id="ws-count"><option value="5">5문제</option><option value="10" selected>10문제</option><option value="20">20문제</option></select>
+        <select id="ws-answer"><option value="no">정답지 숨기기</option><option value="yes">정답지 포함</option></select>
+        <select id="ws-summary"><option value="yes">개념 요약 포함</option><option value="no">개념 요약 숨기기</option></select>
+      </div>
+      <div class="detail-controls"><button class="btn btn-primary" id="ws-make">학습지 만들기</button></div>
+    </div>
+    <div style="height:20px;"></div>
+    <div id="sheet-output"></div>
+  </div>
+</main>
+<footer class="site-footer no-print">
+  <div class="container foot-grid">
+    <div><h4>🔬 과학아 놀자!</h4><p>개념부터 실험까지, 초중고 과학을 쉽고 재미있게</p></div>
+    <div><h4>바로가기</h4><p><a href="concepts.html">개념 보기</a> · <a href="practice.html">문제 풀기</a> · <a href="experiment.html">실험</a></p></div>
+    <div><h4>안내</h4><p>인쇄 버튼으로 종이에 출력하거나 PDF로 저장하세요.</p></div>
+  </div>
+  <div class="container foot-bottom">© 2026 과학아 놀자! · science.chatgpts.kr</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/science-data.js"></script>
+<script src="js/concept-data.js"></script>
+<script src="js/problem-data.js"></script>
+<script src="js/experiment-data.js"></script>
+<script src="js/generator.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/cg-auth.js" data-service="science" data-adopt="true"></script>
+<script src="js/auth.js"></script>
+<script src="js/worksheet.js"></script>
+<div id="cg-auth-slot" class="no-print" style="position:fixed;right:12px;bottom:12px;z-index:500;"></div>
+</body>
+</html>

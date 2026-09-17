@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퀴즈 - 과학아 놀자!</title>
+<meta name="description" content="개념 확인, 공식 계산, 실험 과정, 종합 퀴즈로 실력을 확인하세요.">
+<link rel="canonical" href="https://science.chatgpts.kr/quiz.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/cg-auth.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="logo"><span class="logo-char">🔬</span><span>과학아 놀자!</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기"><i class="fa-solid fa-bars"></i></button>
+    <nav class="main-nav" id="main-nav"></nav>
+  </div>
+</header>
+<main class="section" style="padding-top:28px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">QUIZ</span>
+      <h2>🧩 퀴즈</h2>
+      <p>개념·공식·실험·종합 퀴즈 중 골라 실력을 확인해 보세요.</p>
+    </div>
+    <div class="quiz-card" id="quiz-setup">
+      <div class="filter-bar">
+        <select id="qz-type"><option value="concept">개념 확인 퀴즈</option><option value="formula">법칙/공식 계산 퀴즈</option><option value="experiment">실험 과정 퀴즈</option><option value="mixed">종합 퀴즈</option></select>
+        <select id="qz-school"><option value="all">전체 학교급</option><option value="elementary">🌱 초등</option><option value="middle">🌿 중등</option><option value="high">🌳 고등</option></select>
+        <select id="qz-count"><option value="5">5문제</option><option value="10" selected>10문제</option><option value="15">15문제</option></select>
+        <select id="qz-time"><option value="0">제한시간 없음</option><option value="60">60초</option><option value="180">3분</option><option value="300">5분</option></select>
+      </div>
+      <div class="detail-controls"><button class="btn btn-primary" id="qz-start">퀴즈 시작!</button></div>
+    </div>
+    <div class="quiz-card" id="quiz-play" style="display:none;">
+      <div class="progress-dots" id="qz-progress"></div>
+      <p id="qz-timer" class="muted" style="display:none;font-weight:800;"></p>
+      <p id="qz-question" style="font-size:1.1rem;line-height:1.8;"></p>
+      <div id="qz-answers"></div>
+      <div class="feedback" id="qz-feedback" style="display:none;"></div>
+    </div>
+    <div class="quiz-card" id="quiz-result" style="display:none;"></div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div><h4>🔬 과학아 놀자!</h4><p>개념부터 실험까지, 초중고 과학을 쉽고 재미있게</p></div>
+    <div><h4>바로가기</h4><p><a href="practice.html">문제 풀기</a> · <a href="progress.html">내 진도</a> · <a href="stats.html">통계</a></p></div>
+    <div><h4>안내</h4><p>퀴즈 결과는 로그인하면 계정에 저장돼요.</p></div>
+  </div>
+  <div class="container foot-bottom">© 2026 과학아 놀자! · science.chatgpts.kr</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/science-data.js"></script>
+<script src="js/concept-data.js"></script>
+<script src="js/problem-data.js"></script>
+<script src="js/experiment-data.js"></script>
+<script src="js/generator.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/cg-auth.js" data-service="science" data-adopt="true"></script>
+<script src="js/auth.js"></script>
+<script src="js/quiz.js"></script>
+<div id="cg-auth-slot" style="position:fixed;right:12px;bottom:12px;z-index:500;"></div>
+</body>
+</html>
