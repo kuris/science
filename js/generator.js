@@ -79,26 +79,90 @@
     p.hint = '몰수 = 질량 ÷ 몰질량이에요.';
     return p;
   }
-  function generateConceptQuiz(level) {
-    var concepts = window.ScienceConceptData || [];
-    if (!concepts.length) return null;
-    var c = concepts[rndInt(0, concepts.length - 1)];
-    var others = shuffle(concepts.filter(function (x) { return x.id !== c.id; })).slice(0, 3).map(function (x) { return x.title; });
-    return {
-      id: 'generated_quiz_' + Date.now().toString(36),
-      conceptId: c.id, schoolLevel: c.schoolLevel, gradeLevel: c.gradeLevel,
-      field: c.field, unit: c.unit, level: level || 'easy', type: 'multiple_choice',
-      question: '다음 설명에 해당하는 개념은 무엇인가요? "' + c.shortDescription + '"',
-      choices: shuffle([c.title].concat(others)),
-      answer: c.title, unitAnswer: null,
-      explanation: c.title + ': ' + c.shortDescription + ' 외우는 꿀팁 - ' + c.memoryTip,
-      hint: '개념의 첫 문장을 떠올려 보세요.'
-    };
+  function concepts() { return window.ScienceConceptData || []; }
+
+  // 개념의 핵심어 추출 (서술형 대신 빈칸·객관식으로 출제하기 위함)
+  // 우선순위: quickCheck.answer가 짧으면 그대로, 길면 memoryTip·title 활용
+  function conceptKeyword(c) {
+    if (!c) return '';
+    var qa = (c.quickCheck && c.quickCheck.answer) || '';
+    if (qa && qa.length <= 12) return qa;
+    if (c.memoryTip) {
+      var m = c.memoryTip.split('!')[0].split('.')[0].trim();
+      if (m && m.length <= 24) return m;
+    }
+    return c.title;
+  }
+
+  // 같은 분야의 다른 개념 제목 (객관식 오답용)
+  function siblingTitles(c, n) {
+    var pool = shuffle(concepts().filter(function (x) {
+      return x.id !== c.id && x.field === c.field && x.schoolLevel === c.schoolLevel;
+    }));
+    if (pool.length < n) {
+      pool = pool.concat(shuffle(concepts().filter(function (x) {
+        return x.id !== c.id && pool.indexOf(x) === -1;
+      })));
+    }
+    return pool.slice(0, n).map(function (x) { return x.title; });
+  }
+
+  // 빈칸형: 설명 속 핵심어를 빈칸으로 (질문 형식 4종 로테이션)
+  function generateBlankProblem(c, level) {
+    var kw = conceptKeyword(c);
+    var desc = c.shortDescription || '';
+    var p = base(c.id, c.schoolLevel, c.gradeLevel, c.field, c.unit, level || 'easy');
+    p.type = 'multiple_choice';
+    var answer, q, distract;
+    var variant = rndInt(0, 3);
+    if (variant === 0 || !desc) {
+      // 개념 고르기
+      answer = c.title;
+      q = '"' + desc + '" — 이 설명에 해당하는 개념은 무엇인가요?';
+      distract = siblingTitles(c, 3);
+    } else if (variant === 1 && desc && kw && desc.indexOf(kw) !== -1 && kw.length >= 2) {
+      // 빈칸 채우기
+      answer = kw;
+      q = '빈칸에 들어갈 말은? "' + desc.replace(kw, '○○') + '"';
+      distract = siblingTitles(c, 2).concat([c.title]);
+    } else if (variant === 2 && c.example && c.example.answer) {
+      // 예제 기반: 예제 질문 → 정답 고르기
+      answer = String(c.example.answer).length <= 16 ? c.example.answer : c.title;
+      q = '(예제) ' + c.example.question;
+      distract = answer === c.title ? siblingTitles(c, 3) : siblingTitles(c, 2).concat([c.title]);
+    } else {
+      // 암기팁 연결: 팁의 앞부분이 설명하는 개념은?
+      answer = c.title;
+      q = '"' + c.memoryTip + '" — 이 꿀팁이 설명하는 개념은 무엇인가요?';
+      distract = siblingTitles(c, 3);
+    }
+    p.question = q;
+    p.answer = answer;
+    p.choices = makeChoices(answer, distract);
+    p.explanation = c.title + ': ' + desc + ' 외우는 꿀팁 - ' + c.memoryTip;
+    p.hint = '💡 힌트: ' + c.memoryTip;
+    return p;
+  }
+
+  // 개념 확인 객관식: 항상 "이 개념"에 대해서만 출제 (엉뚱한 개념 섞지 않음)
+  function generateConceptQuiz(level, fixedConceptId) {
+    var list = concepts();
+    if (!list.length) return null;
+    var c = fixedConceptId
+      ? list.filter(function (x) { return x.id === fixedConceptId; })[0]
+      : list[rndInt(0, list.length - 1)];
+    if (!c) return null;
+    return generateBlankProblem(c, level);
   }
 
   function byConcept(conceptId, count, level) {
     var statics = (window.ScienceProblemData || []).filter(function (p) {
       return p.conceptId === conceptId && (!level || level === 'all' || p.level === level);
+    });
+    // 막연한 서술형("한 문장으로 설명하면?")은 제외 — 객관식·계산형만 쓴다
+    statics = statics.filter(function (p) {
+      if (p.type === 'short_answer' && p.answer && p.answer.length > 12) return false;
+      return true;
     });
     var out = shuffle(statics).slice(0, count);
     var gens = { middle_speed: generateSpeedProblem, middle_density: generateDensityProblem, middle_ohm: generateOhmLawProblem, high_mole: generateMoleProblem };
@@ -109,9 +173,10 @@
       guard++;
     }
     guard = 0;
+    // 부족분은 "같은 개념"의 빈칸·확인 문제로만 채운다 (엉뚱한 개념 섞지 않음)
     while (out.length < count && guard < count * 2) {
-      var q = generateConceptQuiz(level === 'all' ? undefined : level);
-      if (q) { q.conceptId = conceptId; out.push(q); }
+      var q = generateConceptQuiz(level === 'all' ? undefined : level, conceptId);
+      if (q) out.push(q);
       guard++;
     }
     return out.slice(0, count);

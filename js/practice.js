@@ -90,11 +90,24 @@
     }
   }
 
-  function norm(s) { return String(s == null ? '' : s).trim().replace(/\s+/g, ''); }
+  function norm(s) { return String(s == null ? '' : s).trim().replace(/\s+/g, '').toLowerCase(); }
+  function checkAnswer(given, answer) {
+    var g = norm(given), a = norm(answer);
+    if (!g || !a) return false;
+    if (g === a) return true;
+    // 숫자 답: 정확히 일치해야 함 ("5" vs "15" 혼동 방지)
+    if (/^[0-9.\-]+$/.test(a)) return g === a;
+    // 단답형(≤12자): 정답 포함 또는 핵심어 포함 시 정답
+    if (a.length <= 12) return g.indexOf(a) !== -1 || a.indexOf(g) !== -1;
+    // 긴 서술형은 원칙적으로 출제하지 않지만, 혹시 나오면 핵심어 매칭
+    var keys = a.replace(/[은는이가을를의에]/g, ' ').split(/[\s,·\-~()]+/).filter(function (w) { return w.length >= 2; });
+    var hit = keys.filter(function (w) { return g.indexOf(w) !== -1; }).length;
+    return hit >= 2 && hit / keys.length >= 0.5;
+  }
   function check(given) {
     var p = queue[idx];
+    var ok = checkAnswer(given, p.answer);
     var g = norm(given), a = norm(p.answer);
-    var ok = g === a || (a && g.indexOf(a) !== -1) || (g && a.indexOf(g) !== -1 && g.length >= 2);
     var ansBox = document.getElementById('pr-answers');
     var fb = document.getElementById('pr-feedback');
     ansBox.querySelectorAll('.opt-btn').forEach(function (b) {
