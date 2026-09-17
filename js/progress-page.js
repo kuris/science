@@ -29,7 +29,7 @@
         var c = byId[id];
         return c ? '<a class="unit-chip" href="concept-view.html?id=' + encodeURIComponent(id) + '">✅ ' + esc(c.title) + '</a>' : '';
       }).join('') + (done.length > 12 ? '<p class="muted">외 ' + (done.length - 12) + '개</p>' : '') : '<p class="muted">아직 완료한 개념이 없어요. <a href="concepts.html">개념 보러 가기</a></p>') + '</div></div>' +
-      '<div class="dash-card"><h3>🏫 학교급별 진도</h3>' + D.SCHOOL_LEVELS.map(function (s) {
+      '<div class="dash-card"><h3>🏫 초등·중등·고등별 진도</h3>' + D.SCHOOL_LEVELS.map(function (s) {
         var r = st.bySchool[s.value] || { total: 0, correct: 0 };
         var pct = r.total ? Math.round(r.correct / r.total * 100) : 0;
         return '<div class="bar-row"><span class="bar-label">' + s.emoji + ' ' + s.label + '</span><div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div><span style="font-size:.85rem;">' + r.total + '문제 ' + pct + '%</span></div>';
