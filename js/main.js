@@ -46,6 +46,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }).join('') + '<div class="detail-controls"><a class="btn btn-outline btn-sm" href="quiz.html">오늘의 5문제 풀기</a></div>';
   }
 
+  // 오늘의 실험/관찰 추천
+  var todayExp = document.getElementById('today-experiment');
+  if (todayExp && experiments.length) {
+    var e = pick(experiments, 1, daySeed() + 2)[0];
+    todayExp.innerHTML =
+      '<a class="exp-pick" href="experiment.html?id=' + encodeURIComponent(e.id) + '">' +
+      '<span class="exp-pick-emoji">🧪</span>' +
+      '<span class="mini-q-body"><strong>직접 관찰해 볼까? ' + esc(e.title) + '</strong>' +
+      '<small>⏱️ ' + e.timeMinutes + '분 · ✅ 안전한 활동 · ' + esc(D.schoolLabel(e.schoolLevel)) + '</small></span><span class="mini-q-go">→</span></a>';
+  }
+
   // 암기 꿀팁
   var tipsBox = document.getElementById('memory-tips');
   if (tipsBox && concepts.length) {

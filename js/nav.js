@@ -13,20 +13,23 @@
       ]
     },
     {
-      label: '풀기', icon: '⚡',
+      label: '풀기', icon: '✏️',
       children: [
         { label: '문제 풀기', href: 'practice.html', icon: '✏️', desc: '개념별·단원별 연습' },
         { label: '퀴즈', href: 'quiz.html', icon: '🧩', desc: '개념·공식·실험 퀴즈' }
       ]
     },
-    {
-      label: '내 기록', icon: '📊',
-      children: [
-        { label: '내 진도', href: 'progress.html', icon: '🗺️', desc: '학습한 개념과 오답노트' },
-        { label: '통계', href: 'stats.html', icon: '📈', desc: '정답률과 학습량' },
-        { label: '로그인', href: 'login.html', icon: '🔑', desc: '기록 저장하고 이어서 공부' }
-      ]
-    }
+    { label: '내 진도', href: 'progress.html', icon: '🗺️' },
+    { label: '통계', href: 'stats.html', icon: '📈' }
+  ];
+
+  var FAMILY = [
+    { icon: '📖', label: '한자야 놀자', href: 'https://hanja.chatgpts.kr' },
+    { icon: '🔢', label: '수학아 놀자', href: 'https://math.chatgpts.kr' },
+    { icon: '⚡', label: '단어야 놀자', href: 'https://voca.chatgpts.kr' },
+    { icon: '📜', label: '역사야 놀자', href: 'https://history.chatgpts.kr' },
+    { icon: '🧠', label: '마인드테스트', href: 'https://mind.chatgpts.kr' },
+    { icon: '🏠', label: 'chatgpts.kr', href: 'https://chatgpts.kr' }
   ];
 
   function currentFile() {
@@ -48,13 +51,11 @@
             '</span><span class="nd-body"><strong>' + c.label + '</strong><small>' + (c.desc || '') + '</small></span></a>';
         }).join('') + '</div></li>';
     }).join('');
-    html += '<li class="nav-family-item"><div class="family-nav-wrap"><button type="button" class="family-btn" id="family-btn">다른 놀자 서비스 <span style="font-size:10px;margin-left:2px;">▾</span></button>' +
-      '<div class="family-dropdown" id="family-dropdown">' +
-      '<a href="https://hanja.chatgpts.kr" target="_blank" rel="noopener"><span>漢</span> <span>한자야 놀자</span></a>' +
-      '<a href="https://voca.chatgpts.kr" target="_blank" rel="noopener"><span>⚡</span> <span>단어야 놀자</span></a>' +
-      '<a href="https://history.chatgpts.kr" target="_blank" rel="noopener"><span>📜</span> <span>역사야 놀자</span></a>' +
-      '<a href="https://mind.chatgpts.kr" target="_blank" rel="noopener"><span>🧠</span> <span>마인드테스트</span></a>' +
-      '<a href="https://chatgpts.kr" target="_blank" rel="noopener"><span>🏠</span> <span>chatgpts.kr</span></a>' +
+    html += '<li class="nav-family-item"><div class="family-nav-wrap"><button type="button" class="family-btn" id="family-btn" aria-expanded="false" aria-haspopup="true">다른 놀자 서비스 <span style="font-size:10px;margin-left:2px;">▾</span></button>' +
+      '<div class="family-dropdown" id="family-dropdown" role="menu">' +
+      FAMILY.map(function (s) {
+        return '<a href="' + s.href + '" target="_blank" rel="noopener" role="menuitem"><span>' + s.icon + '</span> <span>' + s.label + '</span></a>';
+      }).join('') +
       '</div></div></li>';
     return html;
   }
@@ -66,10 +67,9 @@
         item.children.map(function (c) { return '<li><a href="' + c.href + '"' + (c.href === h ? ' class="active"' : '') + '>' + c.icon + ' ' + c.label + '</a></li>'; }).join('') + '</ul></li>';
     }).join('');
     html += '<li class="m-group" style="border-top:2px solid rgba(13,148,136,.25);margin-top:10px;padding-top:10px;"><span class="m-group-title" style="color:#0d9488;font-weight:800;">🎡 다른 놀자 서비스</span><ul class="m-sub">' +
-      '<li><a href="https://hanja.chatgpts.kr" target="_blank" rel="noopener">漢 한자야 놀자</a></li>' +
-      '<li><a href="https://voca.chatgpts.kr" target="_blank" rel="noopener">⚡ 단어야 놀자</a></li>' +
-      '<li><a href="https://history.chatgpts.kr" target="_blank" rel="noopener">📜 역사야 놀자</a></li>' +
-      '<li><a href="https://chatgpts.kr" target="_blank" rel="noopener">🏠 chatgpts.kr</a></li></ul></li>';
+      FAMILY.map(function (s) {
+        return '<li><a href="' + s.href + '" target="_blank" rel="noopener">' + s.icon + ' ' + s.label + '</a></li>';
+      }).join('') + '</ul></li>';
     return html;
   }
 
