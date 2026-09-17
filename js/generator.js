@@ -159,11 +159,6 @@
     var statics = (window.ScienceProblemData || []).filter(function (p) {
       return p.conceptId === conceptId && (!level || level === 'all' || p.level === level);
     });
-    // 막연한 서술형("한 문장으로 설명하면?")은 제외 — 객관식·계산형만 쓴다
-    statics = statics.filter(function (p) {
-      if (p.type === 'short_answer' && p.answer && p.answer.length > 12) return false;
-      return true;
-    });
     var out = shuffle(statics).slice(0, count);
     var gens = { middle_speed: generateSpeedProblem, middle_density: generateDensityProblem, middle_ohm: generateOhmLawProblem, high_mole: generateMoleProblem };
     var g = gens[conceptId];
