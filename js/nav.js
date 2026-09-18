@@ -23,14 +23,6 @@
     { label: '통계', href: 'stats.html', icon: '📈' }
   ];
 
-  var FAMILY = [
-    { icon: '📖', label: '한자야 놀자', href: 'https://hanja.chatgpts.kr' },
-    { icon: '🔢', label: '수학아 놀자', href: 'https://math.chatgpts.kr' },
-    { icon: '⚡', label: '단어야 놀자', href: 'https://voca.chatgpts.kr' },
-    { icon: '📜', label: '역사야 놀자', href: 'https://history.chatgpts.kr' },
-    { icon: '🧠', label: '마인드테스트', href: 'https://mind.chatgpts.kr' },
-    { icon: '🏠', label: 'chatgpts.kr', href: 'https://chatgpts.kr' }
-  ];
 
   function currentFile() {
     var f = (location.pathname.split('/').pop() || 'index.html');
@@ -51,12 +43,7 @@
             '</span><span class="nd-body"><strong>' + c.label + '</strong><small>' + (c.desc || '') + '</small></span></a>';
         }).join('') + '</div></li>';
     }).join('');
-    html += '<li class="nav-family-item"><div class="family-nav-wrap"><button type="button" class="family-btn" id="family-btn" aria-expanded="false" aria-haspopup="true">다른 놀자 서비스 <span style="font-size:10px;margin-left:2px;">▾</span></button>' +
-      '<div class="family-dropdown" id="family-dropdown" role="menu">' +
-      FAMILY.map(function (s) {
-        return '<a href="' + s.href + '" target="_blank" rel="noopener" role="menuitem"><span>' + s.icon + '</span> <span>' + s.label + '</span></a>';
-      }).join('') +
-      '</div></div></li>';
+    html += '<li class="nav-family-item"><div data-cg-family data-current="science"></div></li>';
     return html;
   }
 
@@ -66,10 +53,7 @@
       return '<li class="m-group"><span class="m-group-title">' + item.icon + ' ' + item.label + '</span><ul class="m-sub">' +
         item.children.map(function (c) { return '<li><a href="' + c.href + '"' + (c.href === h ? ' class="active"' : '') + '>' + c.icon + ' ' + c.label + '</a></li>'; }).join('') + '</ul></li>';
     }).join('');
-    html += '<li class="m-group" style="border-top:2px solid rgba(13,148,136,.25);margin-top:10px;padding-top:10px;"><span class="m-group-title" style="color:#0d9488;font-weight:800;">🎡 다른 놀자 서비스</span><ul class="m-sub">' +
-      FAMILY.map(function (s) {
-        return '<li><a href="' + s.href + '" target="_blank" rel="noopener">' + s.icon + ' ' + s.label + '</a></li>';
-      }).join('') + '</ul></li>';
+    html += '<li class="m-group" style="border-top:2px solid rgba(13,148,136,.25);margin-top:10px;padding-top:10px;"><span class="m-group-title" style="color:#0d9488;font-weight:800;">🎡 다른 놀자 서비스</span><div data-cg-family="flat" data-current="science"></div></li>';
     return html;
   }
 
@@ -79,21 +63,17 @@
     if (!navToggle || !mainNav) return;
     var h = here();
     mainNav.innerHTML = '<ul class="nav-desktop">' + buildDesktop(h) + '</ul><ul class="nav-mobile">' + buildMobile(h) + '</ul>';
+    if (window.CGFamily) window.CGFamily.autoInit();
     var icon = navToggle.querySelector('i');
     function closeAllDropdowns() {
-      var fd = document.getElementById('family-dropdown');
-      if (fd) fd.classList.remove('show');
+      var fd = document.querySelector('.cg-fam-wrap.open');
+      if (fd) fd.classList.remove('open');
       mainNav.querySelectorAll('.nav-group.open').forEach(function (g) { g.classList.remove('open'); });
     }
     function openNav() { mainNav.classList.add('open'); document.body.classList.add('nav-open'); if (icon) icon.className = 'fa-solid fa-xmark'; }
     function closeNav() { mainNav.classList.remove('open'); document.body.classList.remove('nav-open'); if (icon) icon.className = 'fa-solid fa-bars'; closeAllDropdowns(); }
     navToggle.addEventListener('click', function (e) { e.stopPropagation(); mainNav.classList.contains('open') ? closeNav() : openNav(); });
-    var familyBtn = document.getElementById('family-btn');
-    var familyDropdown = document.getElementById('family-dropdown');
-    if (familyBtn && familyDropdown) {
-      familyBtn.addEventListener('click', function (e) { e.stopPropagation(); closeAllDropdowns(); familyDropdown.classList.toggle('show'); });
-      document.addEventListener('click', function () { familyDropdown.classList.remove('show'); });
-    }
+    // 패밀리 드롭다운 토글은 cg-family.js 자체 처리
     mainNav.querySelectorAll('.nav-group-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
